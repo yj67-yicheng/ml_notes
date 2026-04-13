@@ -1,0 +1,42 @@
+ensemble learning combines multiple weak models to creae a stronger one, improving accuracy and robustness over single models.
+
+bagging: parallel training on bootstrap samples; reduces variance
+    random forest
+
+    有放回的随机抽样；平权投票；并行执行
+
+boosting: sequential training, each model fixes prior errors; reduce bias.
+    将训练注意力集中在错误数据
+
+    每次训练都会使用全部样本.
+    加权投票 -> 预测正确:权重降低, 预测错误: 权重增加.
+    只能串行执行.
+
+    adaboost (adaptive boosting)
+        1. 使用全部样本, 通过决策树模型(第1个弱分类器)进行训练, 获取结果.
+            思路:
+                预测正确 -> 权重下降
+                预测错误 -> 权重上升
+        2. 把第1个弱分类器的处理结果, 交给第2个弱分类器进行训练, 获取结果.
+            思路:
+                预测正确 -> 权重下降
+                预测错误 -> 权重上升
+        3. 依次类推, 串行执行, 直至获取最终结果.
+
+    gbdt (gradient boosting decision tree)
+        概述:
+            通过拟合 负梯度 来获取一个强学习器
+        流程:
+            1. 采用所有目标值的均值 作为第1个弱学习器的 预测值.
+            2. 目标值 - 预测值 = 负梯度(残差), 该(列)值作为 第2个弱学习器的 目标值.
+            3. 针对于第1个弱学习器, 依次计算每个分割点的 最小平方和, 找到最佳 分割点, 至此: 第1个弱学习器搭建完毕.
+            4. 把上述的分割点带入第2个弱学习器, 计算它的预测值 = 以此分割点为界, 目标值的均值, 即为该部分数据的 预测值.
+            5. 计算第2个弱学习器的 负梯度, 最佳分割点, 至此: 第2个弱学习器搭建完毕.
+            6. 以此类推, 直至程序结束.
+
+    xgboost (extreme gradient boosting tree)
+        Gain值 = 分枝前的打分 - (分支后左子树打分 + 分支后右子树打分)
+        如果 Gain值 > 0, 考虑分枝, 否则: 不考虑分枝.
+
+
+
