@@ -3,5 +3,7 @@
 .vscode
 .data
 .model
+.machine_learning/model
+.deep_learning/model
 
 
